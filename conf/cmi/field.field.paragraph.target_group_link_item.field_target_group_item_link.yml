@@ -1,4 +1,4 @@
-uuid: d45e78a9-4b8b-48d2-a5dc-a3f57a1cc996
+uuid: b0079954-df58-4c05-a3a3-a072d9199e6d
 langcode: en
 status: true
 dependencies:
@@ -7,6 +7,8 @@ dependencies:
     - paragraphs.paragraphs_type.target_group_link_item
   module:
     - link
+_core:
+  default_config_hash: rUBdTO6-bBRgWSVc9KDKAeNvSZgHAlB_hdTItzsI8PI
 id: paragraph.target_group_link_item.field_target_group_item_link
 field_name: field_target_group_item_link
 entity_type: paragraph

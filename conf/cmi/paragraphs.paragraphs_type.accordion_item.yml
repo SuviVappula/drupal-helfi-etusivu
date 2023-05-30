@@ -1,9 +1,12 @@
 uuid: 4299f4ae-45e9-4747-920e-afb5ee2d9b63
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    config:
+      - paragraphs.paragraphs_type.accordion
 _core:
-  default_config_hash: DAeI-rU8N6t2oPB9MB8U-i0Jz_3PpbeRfNkllyPuVzM
+  default_config_hash: 3_2UxgHC3d_rUCxJsaSL4ynVsWjXtTwRlrvBotSkiWg
 id: accordion_item
 label: 'Accordion item'
 icon_uuid: null

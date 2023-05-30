@@ -1,10 +1,12 @@
-uuid: 99fa8820-7cc5-4b8c-8450-52cfbcd1b402
+uuid: ceb9086a-1091-4fbe-bd7d-5cc33e99420f
 langcode: en
 status: true
 dependencies:
   module:
     - link
     - paragraphs
+_core:
+  default_config_hash: xR5XlNQ5HDtWotW8RvVdWDqeaD_OtDi5VEUTFqTL9UE
 id: paragraph.field_target_group_item_link
 field_name: field_target_group_item_link
 entity_type: paragraph

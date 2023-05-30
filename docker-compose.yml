@@ -29,6 +29,7 @@ services:
       DRUPAL_VARNISH_HOST: "${COMPOSE_PROJECT_NAME}-varnish"
       DRUPAL_VARNISH_PORT: 6081
       REDIS_HOST: redis
+      PROJECT_NAME: "${PROJECT_NAME}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
       - "${DRUPAL_HOSTNAME}:host-gateway"
@@ -44,12 +45,20 @@ services:
       - "traefik.docker.network=stonehenge-network"
   redis:
     container_name: "${COMPOSE_PROJECT_NAME}-redis"
-    image: redis:6-alpine
+    image: redis:7-alpine
+    command: [sh, -c, "rm -f /data/dump.rdb && redis-server --save ''"]
     networks:
       - internal
   db:
     container_name: "${COMPOSE_PROJECT_NAME}-db"
-    image: druidfi/mariadb:10.6-drupal
+    image: druidfi/mariadb:10.11-drupal
+    command:
+      - --max_allowed_packet=512M
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_swedish_ci
+    environment:
+      MARIADB_AUTO_UPGRADE: "1"
+      MARIADB_INITDB_SKIP_TZINFO: "1"
     volumes:
       - db_data:/var/lib/mysql
     ports:

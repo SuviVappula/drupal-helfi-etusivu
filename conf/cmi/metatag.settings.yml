@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: oqtyPaX0pUlAoMuUdHwfDFGkQ_aofQsoX41d0yU6zCQ
+entity_type_groups:
+  node:
+    landing_page:
+      basic: basic
+      open_graph: open_graph
+      twitter_cards: twitter_cards
+    page:
+      basic: basic
+      open_graph: open_graph
+      twitter_cards: twitter_cards

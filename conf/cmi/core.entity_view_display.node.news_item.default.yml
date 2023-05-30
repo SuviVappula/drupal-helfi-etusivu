@@ -17,12 +17,12 @@ dependencies:
     - node.type.news_item
   module:
     - entity_reference_revisions
-    - helfi_content
+    - hdbt_admin_tools
     - link
     - radioactivity
     - user
 _core:
-  default_config_hash: tqlFC6ku-KOPGVDzzfRA0SSzFD_5iAMqKfpTMcUyqBg
+  default_config_hash: _31gTd8Z7ZT8KGS8tHPve5Vb_OAnn7JbybIcOXUGiyA
 id: node.news_item.default
 targetEntityType: node
 bundle: news_item
@@ -64,7 +64,7 @@ content:
     type: entity_reference_label
     label: above
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
@@ -92,7 +92,7 @@ content:
     type: entity_reference_label
     label: above
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 11
     region: content
@@ -100,7 +100,7 @@ content:
     type: entity_reference_label
     label: above
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 12
     region: content

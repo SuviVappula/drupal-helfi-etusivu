@@ -1,8 +1,11 @@
 version: '3.7'
 
 services:
+  app:
+    environment:
+      - ELASTIC_PROXY_URL=${ELASTIC_PROXY_URL}
   elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.0
     container_name: "${COMPOSE_PROJECT_NAME}-elastic"
     environment:
       - node.name="${COMPOSE_PROJECT_NAME}-elastic"
@@ -11,16 +14,17 @@ services:
       - cluster.initial_master_nodes="${COMPOSE_PROJECT_NAME}-elastic"
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "http.cors.allow-origin=*"
+      - "http.cors.allow-origin=\"*\""
       - "http.cors.enabled=true"
       - "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization"
       - "http.cors.allow-credentials=true"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
         hard: -1
     ports:
-      - 9200:9200
+      - 9200-9220:9200
     networks:
       - internal
       - stonehenge-network

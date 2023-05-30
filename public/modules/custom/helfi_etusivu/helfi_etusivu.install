@@ -7,6 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Database\Database;
+use Drupal\node\Entity\Node;
+
 /**
  * Implements hook_install().
  */
@@ -18,11 +21,11 @@ function helfi_etusivu_install() : void {
     $storage = \Drupal::entityTypeManager()
       ->getStorage('path_alias');
 
-    if (!$storage->loadByProperties(['alias' => '/openapi/jsonapi/redoc'])) {
+    if (!$storage->loadByProperties(['alias' => '/openapi/redoc/jsonapi'])) {
       // Create easier to remember URL alias for ReDoc UI.
       $storage->create([
         'path' => '/admin/config/services/openapi/redoc/jsonapi',
-        'alias' => '/openapi/jsonapi/redoc',
+        'alias' => '/openapi/redoc/jsonapi',
       ])
         ->save();
     }
@@ -98,5 +101,111 @@ function helfi_etusivu_update_9003() : void {
         ])->save();
       }
     }
+  }
+}
+
+/**
+ * Update redoc path alias.
+ */
+function helfi_etusivu_update_9004() : void {
+  /** @var \Drupal\Core\Extension\ModuleHandler $moduleHandler */
+  $moduleHandler = \Drupal::service('module_handler');
+
+  if ($moduleHandler->moduleExists('path_alias')) {
+    $storage = \Drupal::entityTypeManager()
+      ->getStorage('path_alias');
+
+    if (!$storage->loadByProperties(['alias' => '/openapi/redoc/jsonapi'])) {
+      // Create easier to remember URL alias for ReDoc UI.
+      $storage->create([
+        'path' => '/admin/config/services/openapi/redoc/jsonapi',
+        'alias' => '/openapi/redoc/jsonapi',
+      ])
+        ->save();
+    }
+  }
+}
+
+/**
+ * Add column to draggable view db table.
+ */
+function helfi_etusivu_update_9005() : void {
+  /** @var \Drupal\Core\Extension\ModuleHandler $moduleHandler */
+  $moduleHandler = \Drupal::service('module_handler');
+
+  if ($moduleHandler->moduleExists('draggableviews')) {
+    $spec = [
+      'type' => 'varchar',
+      'description' => "language code",
+      'length' => 5,
+      'not null' => TRUE,
+    ];
+    $schema = Database::getConnection()->schema();
+    $schema->addField('draggableviews_structure', 'langcode', $spec);
+  }
+}
+
+/**
+ * Migrated news item were automatically saved as promoted. Revert that.
+ */
+function helfi_etusivu_update_9006() : void {
+  // Don't do anything.
+}
+
+/**
+ * Revert wrong value created on migration.
+ */
+function helfi_etusivu_migare_news_item_promoted(): void {
+  $environmentResolver = \Drupal::service('helfi_api_base.environment_resolver');
+  if ($environmentResolver->getActiveEnvironment()->getEnvironmentName() == 'local') {
+    return;
+  }
+
+  $query = \Drupal::database()->select('node_field_data')
+    ->condition('type', 'news_item')
+    ->condition('promote', 1)
+    ->fields('node_field_data', ['nid', 'type', 'promote'])
+    ->range(0, 200);
+
+  $fn = fn($item) => $item->nid;
+  while ($items = $query->execute()->fetchAll()) {
+    $nodes = Node::loadMultiple(array_unique(array_map($fn, $items)));
+    foreach ($nodes as $node) {
+      foreach (['fi', 'en', 'sv'] as $langcode) {
+        if ($node->hasTranslation($langcode)) {
+          $translation = $node->getTranslation($langcode);
+          $translation->set('promote', FALSE)->save();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Remove drupal/jsonapi_hypermedia and drupal/jsonapi_menu_items dependencies.
+ */
+function helfi_etusivu_update_9007() : void {
+  $modules = [
+    'jsonapi_hypermedia',
+    'jsonapi_menu_items',
+  ];
+  $config = Drupal::configFactory()->getEditable('core.extension');
+  $moduleList = $config->get('module');
+  $isChanged = FALSE;
+
+  foreach ($modules as $module) {
+    \Drupal::database()->delete('key_value')
+      ->condition('name', $module)
+      ->execute();
+
+    if (array_key_exists($module, $moduleList)) {
+      $isChanged = TRUE;
+      unset($moduleList[$module]);
+    }
+  }
+
+  if ($isChanged) {
+    $config->set('module', $moduleList)
+      ->save();
   }
 }

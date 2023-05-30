@@ -6,10 +6,11 @@ dependencies:
     - filter.format.full_html
     - filter.format.minimal
     - media.type.file
+    - media.type.hel_map
     - media.type.helfi_chart
     - media.type.image
     - media.type.remote_video
-    - media.type.soundcloud
+    - node.type.announcement
     - node.type.landing_page
     - node.type.news_item
     - node.type.page
@@ -17,10 +18,12 @@ dependencies:
   module:
     - content_translation
     - editoria11y
+    - entity_usage
     - file
     - filter
     - helfi_api_base
     - media
+    - menu_link_content
     - node
     - paragraphs
     - paragraphs_library
@@ -39,10 +42,10 @@ weight: 3
 is_admin: null
 permissions:
   - 'access content overview'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'access media overview'
   - 'access remote entities overview'
-  - 'access site in maintenance mode'
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
@@ -50,7 +53,9 @@ permissions:
   - 'administer paragraphs library'
   - 'cancel account'
   - 'change own username'
+  - 'create announcement content'
   - 'create file media'
+  - 'create hel_map media'
   - 'create helfi_chart media'
   - 'create image media'
   - 'create landing_page content'
@@ -59,50 +64,63 @@ permissions:
   - 'create page content'
   - 'create paragraph library item'
   - 'create remote_video media'
-  - 'create soundcloud media'
   - 'create terms in keywords'
   - 'create url aliases'
   - 'delete media'
+  - 'delete own announcement content'
   - 'delete own file media'
+  - 'delete own hel_map media'
   - 'delete own helfi_chart media'
   - 'delete own image media'
   - 'delete own landing_page content'
   - 'delete own news_item content'
   - 'delete own page content'
   - 'delete own remote_video media'
-  - 'delete own soundcloud media'
+  - 'edit any announcement content'
   - 'edit any file media'
+  - 'edit any hel_map media'
   - 'edit any helfi_chart media'
   - 'edit any image media'
   - 'edit any landing_page content'
   - 'edit any news_item content'
   - 'edit any page content'
   - 'edit any remote_video media'
-  - 'edit any soundcloud media'
+  - 'edit own announcement content'
   - 'edit own file media'
+  - 'edit own hel_map media'
   - 'edit own helfi_chart media'
   - 'edit own image media'
   - 'edit own landing_page content'
   - 'edit own news_item content'
   - 'edit own page content'
   - 'edit own remote_video media'
-  - 'edit own soundcloud media'
   - 'edit paragraph library item'
   - 'edit terms in keywords'
+  - 'mark as hidden in editoria11y'
+  - 'revert announcement revisions'
   - 'revert landing_page revisions'
   - 'revert news_item revisions'
   - 'revert page revisions'
   - 'schedule publishing of nodes'
+  - 'set announcement published on date'
   - 'set landing_page published on date'
   - 'set news_item published on date'
   - 'set page published on date'
   - 'translate editable entities'
+  - 'translate file media'
+  - 'translate image media'
+  - 'translate landing_page node'
+  - 'translate menu_link_content'
+  - 'translate page node'
   - 'update media'
   - 'use text format full_html'
   - 'use text format minimal'
   - 'view all media revisions'
   - 'view all revisions'
+  - 'view announcement revisions'
   - 'view any unpublished content'
+  - 'view any unpublished landing_page content'
+  - 'view any unpublished page content'
   - 'view editoria11y checker'
   - 'view landing_page revisions'
   - 'view news_item revisions'
@@ -113,10 +131,3 @@ permissions:
   - 'view scheduled content'
   - 'view the administration theme'
   - 'view unpublished paragraphs'
-  - 'create announcement content'
-  - 'delete own announcement content'
-  - 'edit any announcement content'
-  - 'edit own announcement content'
-  - 'revert announcement revisions'
-  - 'set announcement published on date'
-  - 'view announcement revisions'

@@ -1,9 +1,10 @@
-# HELfi global navigation
+# Global navigation
 
-## Note: This module is not completed and is not ready for production
+Etusivu-instance is the main repository for lobal menus. It serves global menus to other helfi-instances.
 
-Provides a module for transferring menu data across instances.
+## Features
 
-Menus are converted into JSON, which is sent to Etusivu (fronpage) instance of Hel.fi ecosystem.
+- Create/update single aggregated main-navigation using main-navigations sent from other instances and serve them via API
+- API to serve other navigations from Etusivu-instance menus
 
-JSON strucure is defined in schema.json file under assets.
+See [documentation/menu.md](/documentation/menu.md) for more information.
